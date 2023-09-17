@@ -32,7 +32,10 @@ export default function PokemonList() {
           <li key={pokemon.name} className="listItem">
             <Link href={`/pokemon/${id}`}>
               <img
-                src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id.padStart(3,'0')}.png`}
+                src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id.padStart(
+                  3,
+                  "0"
+                )}.png`}
                 alt=""
                 width="200"
                 height="200"
@@ -41,7 +44,7 @@ export default function PokemonList() {
             <div>
               <p>
                 <span>#</span>
-                {id.padStart(3,'0')}
+                {id.padStart(3, "0")}
               </p>
               <h5>{pokemon.name}</h5>
             </div>
