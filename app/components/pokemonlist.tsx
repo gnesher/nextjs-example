@@ -5,7 +5,7 @@ import sleep from "sleep-promise";
 const fetchData = async () => {
   try {
     const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=200");
-    // await sleep(2000);
+    await sleep(2000);
     const json = await response.json();
     return json.results;
   } catch (error) {
@@ -14,18 +14,20 @@ const fetchData = async () => {
   }
 };
 
-export default function PokemonList() {
-  const [pokemons, setPokemons] = useState<{ name: string; url: string }[]>([]);
+export default async function PokemonList() {
+//   const [pokemons, setPokemons] = useState<{ name: string; url: string }[]>([]);
 
-  useEffect(() => {
-    fetchData().then((pokemons) => {
-      setPokemons(pokemons);
-    });
-  }, []);
+//   useEffect(() => {
+//     fetchData().then((pokemons) => {
+//       setPokemons(pokemons);
+//     });
+//   }, []);
+
+    const pokemons = await fetchData();
 
   return (
     <ul className="list">
-      {pokemons.map((pokemon) => {
+      {pokemons.map((pokemon: any) => {
         const urlArray = pokemon.url.split("/");
         const id = urlArray[urlArray.length - 2];
         return (

@@ -1,27 +1,19 @@
-"use client";
-
 import { useState, useEffect } from "react";
 import _ from "lodash";
 import Link from "next/link";
 
-export default function Pokemon(props: { params: { id: string } }) {
-  const [pokemon, setPokemon] = useState({} as any);
+const fetchData = async (id: string) => {
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error("error", error);
+  }
+};
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${props.params.id}`
-        );
-        const json = await response.json();
-        setPokemon(json);
-      } catch (error) {
-        console.error("error", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+export default async function Pokemon(props: { params: { id: string } }) {
+  const pokemon = await fetchData(props.params.id);
 
   console.log("if you see this, its rendered on client");
 
@@ -30,9 +22,10 @@ export default function Pokemon(props: { params: { id: string } }) {
       <h1>{pokemon.name}</h1>
       <div style={{ display: "flex" }}>
         <img
-          src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${(
-            "000" + pokemon.id
-          ).substr(-3)}.png`}
+          src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${String(pokemon.id).padStart(
+            3,
+            "0"
+          )}.png`}
           alt=""
           width="200"
           height="200"

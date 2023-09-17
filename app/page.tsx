@@ -1,4 +1,3 @@
-"use client"
 import { Suspense } from "react";
 import PokemonList from "./components/pokemonlist";
 
@@ -11,7 +10,9 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1>Pokemons</h1>
-      <PokemonList />
+      <Suspense fallback={<Loader />}>
+        <PokemonList />
+      </Suspense>
     </main>
   );
 }
