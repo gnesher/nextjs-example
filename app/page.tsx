@@ -1,8 +1,5 @@
-"use client";
-
 import { Suspense } from "react";
-// import PokemonList from "./components/pokemonlist";
-const PokemonList = React.lazy(() => import("./components/pokemonlist"));
+import PokemonList from "./components/pokemonlist";
 
 import Loader from "./components/loader";
 import React from "react";
